@@ -1,7 +1,5 @@
-y<-x%>% group_by(decade)%>% summarise_at(c("G","HR"),sum)
-c<-y%>%mutate(hrrate= HR/(G/2))
+x<-teamsdf%>%mutate(decade = 10 * floor(yearID/10))
 part1 <- x %>% group_by(decade) %>% summarise_at(c("G","HR","SO"),sum,na.rm=T) 
-View(part1)              
 
 part1<-part1 %>% mutate(hrrate=HR/(G/2))
 
