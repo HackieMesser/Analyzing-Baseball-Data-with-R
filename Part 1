@@ -1,6 +1,24 @@
+#1.2.8
+
+#q1
+
 x<-teamsdf%>%mutate(decade = 10 * floor(yearID/10))
 part1 <- x %>% group_by(decade) %>% summarise_at(c("G","HR","SO"),sum,na.rm=T) 
 
 part1<-part1 %>% mutate(hrrate=HR/(G/2))
 
 part1<-part1 %>% mutate(sorate= SO/(G/2))
+
+#q2
+
+part2<- teamsdf%>%select ("yearID", "lgID", "G", "R")
+part2<-part2%>%group_by(yearID,lgID)%>%summarise_at(c("G","R"),sum)
+
+part2<-part2[-c(1:42),]
+
+part2<-part2%>%mutate(runsratio = R/(G/2))
+
+ggplot(part2, aes(factor(yearID),runsratio, fill = lgID)) + 
+  geom_bar(stat="identity", position = "dodge") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  scale_fill_brewer(palette = "Set1") 
