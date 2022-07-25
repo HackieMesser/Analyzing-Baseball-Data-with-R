@@ -22,3 +22,9 @@ ggplot(part2, aes(factor(yearID),runsratio, fill = lgID)) +
   geom_bar(stat="identity", position = "dodge") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   scale_fill_brewer(palette = "Set1") 
+
+
+#q3
+cdf1<-pitchdf%>%select("yearID","GS","CG")
+
+cdf2<-cdf1%>%group_by(yearID>=2000&yearID<=2010, yearID<=1910&yearID>=1900)%>%summarise_at(c("GS","CG"),sum,na.rm=T)%>%mutate(cgratio= CG/GS)
